@@ -11,3 +11,22 @@ pharmagraph/
 Small. Surgical. Expandable.
 
 
+How to Run CLI + Graph
+
+CLI:
+
+python cli.py
+
+Type drug name → see interactions
+
+Type exit → quit
+
+Graph:
+
+python
+from graph_engine import visualize_graph
+visualize_graph()  
+
+Explain node color = drug class
+
+Edge color/thickness = severity

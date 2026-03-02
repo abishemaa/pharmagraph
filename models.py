@@ -27,7 +27,18 @@ def get_drug_id(name):
     else:
         return None
 
-
+def get_drug_class(drug_name):
+    """Return the class of a drug."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT drug_class FROM drugs WHERE name = ?", (drug_name,))
+    result = cursor.fetchone()
+    conn.close()
+    if result and result[0]:
+        return result[0]
+    else:
+        return None
+        
 def add_interaction(drug_name_a, drug_name_b, severity, mechanism):
     conn = get_connection()
     cursor = conn.cursor()
