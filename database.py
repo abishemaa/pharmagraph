@@ -1,36 +1,36 @@
-# SQLite connection + setup
 import sqlite3
 
-DB_NAME = "pharmagraph.db"
+DB_FILE = "pharmagraph.db"
 
-def get_connection():
-    return sqlite3.connect(DB_NAME)
+def get_db_connection():
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row  # access columns by name
+    return conn
 
-def initialize_database():
-    conn = get_connection()
+def init_db():
+    conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Drugs table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS drugs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL UNIQUE,
-        drug_class TEXT,
-        notes TEXT
-    );
+        CREATE TABLE IF NOT EXISTS drugs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT UNIQUE,
+            drug_class TEXT
+        )
     """)
 
+    # Interactions table
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS interactions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        drug_a_id INTEGER NOT NULL,
-        drug_b_id INTEGER NOT NULL,
-        severity TEXT CHECK(severity IN ('mild','moderate','severe')) NOT NULL,
-        mechanism TEXT NOT NULL,
-        FOREIGN KEY (drug_a_id) REFERENCES drugs(id),
-        FOREIGN KEY (drug_b_id) REFERENCES drugs(id),
-        UNIQUE(drug_a_id, drug_b_id),
-        CHECK (drug_a_id < drug_b_id)
-    );
+        CREATE TABLE IF NOT EXISTS interactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            drug1 TEXT,
+            drug2 TEXT,
+            severity INTEGER,
+            mechanism TEXT,
+            FOREIGN KEY(drug1) REFERENCES drugs(name),
+            FOREIGN KEY(drug2) REFERENCES drugs(name)
+        )
     """)
 
     conn.commit()

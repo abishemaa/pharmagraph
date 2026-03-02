@@ -1,29 +1,16 @@
-# Command-line interface
-from models import list_drugs, get_interactions
+from graph_engine import visualize_graph
 
-def main():
-    print("=== PharmaGraph v1 CLI ===")
-    print("Available drugs:", ", ".join(list_drugs()))
-    print("Type 'exit' to quit.\n")
+def run_cli():
+    print("Welcome to PharmaGraph CLI")
+    print("Type a drug name to see interactions, 'all' for full network, 'exit' to quit.")
 
     while True:
-        query = input("Enter a drug to see interactions: ").strip()
-        if query.lower() == "exit":
+        cmd = input("Enter drug name > ").strip()
+        if cmd.lower() == 'exit':
             break
-
-        if query not in list_drugs():
-            print(f"{query} not found. Try again.\n")
-            continue
-
-        interactions = get_interactions(query)
-        if not interactions:
-            print(f"No interactions found for {query}.\n")
-            continue
-
-        print(f"\nInteractions for {query}:")
-        for item in interactions:
-            print(f"- {item['drug']} | Severity: {item['severity']} | Mechanism: {item['mechanism']}")
-        print("")  # extra line for readability
-
-if __name__ == "__main__":
-    main()
+        elif cmd.lower() == 'all':
+            visualize_graph()
+        elif cmd:
+            visualize_graph(cmd)
+        else:
+            print("Please enter a valid drug name.")

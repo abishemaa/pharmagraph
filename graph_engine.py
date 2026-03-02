@@ -1,78 +1,63 @@
-
 import networkx as nx
 import matplotlib.pyplot as plt
-from models import list_drugs, get_interactions, get_drug_class
+import mplcursors
+from models import get_interactions, get_drug_class
 
-def build_graph():
+def visualize_graph(drug_name=None):
     G = nx.Graph()
+    interactions = get_interactions(drug_name)
 
-    # Add all drugs as nodes with class info
-    for drug in list_drugs():
-        drug_class = get_drug_class(drug)  # function to fetch drug_class from DB
-        G.add_node(drug, drug_class=drug_class)
+    if not interactions:
+        print("No interactions found for", drug_name or "all drugs")
+        return
 
-    # Add edges from interactions
-    for drug in list_drugs():
-        interactions = get_interactions(drug)
-        for item in interactions:
-            other = item['drug']
-            severity = item['severity']
-            mechanism = item['mechanism']
+    # Build graph
+    for inter in interactions:
+        d1, d2 = inter['drug1'], inter['drug2']
+        class1, class2 = get_drug_class(d1), get_drug_class(d2)
+        G.add_node(d1, drug_class=class1)
+        G.add_node(d2, drug_class=class2)
+        G.add_edge(d1, d2,
+                   weight=inter['severity'],
+                   mechanism=inter['mechanism'])
 
-            if not G.has_edge(drug, other):
-                # Store severity and mechanism as edge attributes
-                G.add_edge(drug, other, severity=severity, mechanism=mechanism)
+    # Node colors by class
+    classes = list(set(nx.get_node_attributes(G, 'drug_class').values()))
+    color_dict = {cls: plt.cm.tab20(i/len(classes)) for i, cls in enumerate(classes)}
+    node_colors = [color_dict[G.nodes[n]['drug_class']] for n in G.nodes()]
 
-    return G
+    # Edge colors/widths
+    edge_colors = ['red' if G[u][v]['mechanism']=='pharmacodynamic'
+                   else 'blue' if G[u][v]['mechanism']=='pharmacokinetic'
+                   else 'gray' for u,v in G.edges()]
+    edge_widths = [G[u][v]['weight'] for u,v in G.edges()]
 
-def visualize_graph():
-    G = build_graph()
+    pos = nx.spring_layout(G)  # random layout
+    fig, ax = plt.subplots(figsize=(12, 8))
 
-    # Use spring layout for spacing
-    pos = nx.spring_layout(G, k=1, seed=42)
+    nodes = nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=600, ax=ax)
+    edges = nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=edge_widths, ax=ax)
+    nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold', ax=ax)
 
-    # Node colors by drug class
-    class_colors = {}
-    color_map = ['lightblue', 'lightgreen', 'orange', 'pink', 'yellow', 'violet']
-    all_classes = list({G.nodes[n]['drug_class'] for n in G.nodes})
-    for i, cls in enumerate(all_classes):
-        class_colors[cls] = color_map[i % len(color_map)]
-
-    node_colors = [class_colors[G.nodes[n]['drug_class']] for n in G.nodes]
-
-    # Node size by number of interactions (degree)
-    node_sizes = [300 + 150*G.degree(n) for n in G.nodes]
-
-    # Edge colors and widths by severity
-    edge_colors = []
-    edge_widths = []
-    for u, v, data in G.edges(data=True):
-        if data['severity'] == 'severe':
-            edge_colors.append('red')
-            edge_widths.append(4)
-        elif data['severity'] == 'moderate':
-            edge_colors.append('orange')
-            edge_widths.append(2.5)
-        else:
-            edge_colors.append('green')
-            edge_widths.append(1.5)
-
-    # Draw nodes
-    nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=node_sizes)
-
-    # Draw edges
-    nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=edge_widths)
-
-    # Draw labels
-    nx.draw_networkx_labels(G, pos, font_size=10, font_weight='bold')
-
-    # Legend for severity
-    import matplotlib.patches as mpatches
-    red_patch = mpatches.Patch(color='red', label='Severe')
-    orange_patch = mpatches.Patch(color='orange', label='Moderate')
-    green_patch = mpatches.Patch(color='green', label='Mild')
-    plt.legend(handles=[red_patch, orange_patch, green_patch], loc='upper right')
-
-    plt.title("PharmaGraph v1 - Drug Interactions")
+    plt.title(f"Drug Interaction Network{' for ' + drug_name if drug_name else ''}")
     plt.axis('off')
+
+    # Add hover info for nodes
+    cursor = mplcursors.cursor(nodes, hover=True)
+    @cursor.connect("add")
+    def on_add(sel):
+        node = list(G.nodes())[sel.index]
+        sel.annotation.set(text=f"{node}\nClass: {G.nodes[node]['drug_class']}")
+
+    # Add hover info for edges
+    cursor_edges = mplcursors.cursor(edges, hover=True)
+    @cursor_edges.connect("add")
+    def on_edge(sel):
+        line = sel.artist
+        ind = sel.index
+        u, v = list(G.edges())[ind]
+        mech = G[u][v]['mechanism']
+        sev = G[u][v]['weight']
+        sel.annotation.set(text=f"{u} ↔ {v}\nSeverity: {sev}\nMechanism: {mech}")
+
     plt.show()
