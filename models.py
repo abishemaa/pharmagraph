@@ -75,3 +75,39 @@ def list_drugs():
         return [row[0] for row in result]   # returns empty list if no rows
     else:
         return None
+
+def get_interactions(drug_name):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Get the ID of the drug
+    drug_id = get_drug_id(drug_name)
+    if not drug_id:
+        print(f"{drug_name} not found in database.")
+        conn.close()
+        return []
+
+    # Query interactions where this drug is either drug_a or drug_b
+    cursor.execute("""
+        SELECT d1.name, d2.name, i.severity, i.mechanism
+        FROM interactions i
+        JOIN drugs d1 ON i.drug_a_id = d1.id
+        JOIN drugs d2 ON i.drug_b_id = d2.id
+        WHERE i.drug_a_id = ? OR i.drug_b_id = ?
+    """, (drug_id, drug_id))
+
+    results = cursor.fetchall()
+    conn.close()
+
+    interactions = []
+
+    for d1_name, d2_name, severity, mechanism in results:
+        # Determine which one is the "other" drug
+        other = d2_name if d1_name == drug_name else d1_name
+        interactions.append({
+            "drug": other,
+            "severity": severity,
+            "mechanism": mechanism
+        })
+
+    return interactions
