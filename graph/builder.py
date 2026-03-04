@@ -9,7 +9,7 @@ def build_graph(drug_name=None):
         print(f"No interactions found for {drug_name or 'all drugs'}")
         return
 
-    G = nx.Graph()
+    G = nx.DiGraph()
 
     # ---- Build Graph ----
     for inter in interactions:

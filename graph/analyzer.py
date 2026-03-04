@@ -2,11 +2,12 @@
 import networkx as nx
 
 
-def compute_metrics(G):
+def enrich_graph_with_metrics(G):
     degree = nx.degree_centrality(G)
     betweenness = nx.betweenness_centrality(G)
 
-    return {
-        "degree": degree,
-        "betweenness": betweenness
-    }
+    for node in G.nodes():
+        G.nodes[node]["degree_centrality"] = degree[node]
+        G.nodes[node]["betweenness_centrality"] = betweenness[node]
+
+    return G
