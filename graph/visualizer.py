@@ -24,5 +24,4 @@ def visualize_graph(drug_name=None):
 
     plt.title("Drug Interaction Network")
     plt.axis("off")
-    plt.tight_layout()
     plt.show()
