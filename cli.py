@@ -1,4 +1,4 @@
-from graph_engine import visualize_graph
+from graph.visualizer import visualize_graph
 
 def run_cli():
     print("Welcome to PharmaGraph CLI")
