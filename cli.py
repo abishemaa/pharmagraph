@@ -1,5 +1,6 @@
 from graph.visualizer import visualize_graph
 
+
 def run_cli():
     print("Welcome to PharmaGraph CLI")
     print("Type a drug name to see interactions, 'all' for full network, 'exit' to quit.")

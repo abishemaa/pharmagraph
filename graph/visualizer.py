@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib.lines import Line2D
 from .builder import build_graph
+from .analyzer import compute_metrics
 
 
 def visualize_graph(drug_name=None):
@@ -12,7 +13,17 @@ def visualize_graph(drug_name=None):
     if G is None:
         return
 
-    pos = nx.spring_layout(G, seed=42)  # deterministic layout
+    metrics = compute_metrics(G)
+    degree = metrics["degree"]
+    betweenness = metrics["betweenness"]
+
+    pos = nx.spring_layout(G, seed=42)
+
+    # ---- Node Size Based on Degree ----
+    node_sizes = [
+        300 + degree[n] * 2000
+        for n in G.nodes()
+    ]
 
     # ---- Node Colors (by class) ----
     classes = sorted(set(nx.get_node_attributes(G, "drug_class").values()))
@@ -60,8 +71,35 @@ def visualize_graph(drug_name=None):
         for mech, color in mechanism_colors.items()
     ]
 
+        # ---- Metric Legends (Top 3) ----
+    top_degree = sorted(degree.items(), key=lambda x: x[1], reverse=True)[:3]
+    top_betweenness = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:3]
+
+    metric_legend = [
+        Line2D([0], [0], color='white', label="Top Degree Centrality:")
+    ]
+
+    metric_legend += [
+        Line2D([0], [0], color='white',
+            label=f"{drug}: {value:.3f}")
+        for drug, value in top_degree
+    ]
+
+    metric_legend += [
+        Line2D([0], [0], color='white', label=" ")
+    ]
+
+    metric_legend += [
+        Line2D([0], [0], color='white', label="Top Betweenness:")
+    ]
+
+    metric_legend += [
+        Line2D([0], [0], color='white',
+            label=f"{drug}: {value:.3f}")
+        for drug, value in top_betweenness
+    ]
     plt.legend(
-        handles=node_legend + edge_legend,
+        handles=node_legend + edge_legend + metric_legend,
         title="Legend",
         bbox_to_anchor=(1.05, 1),
         loc="upper left"
