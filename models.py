@@ -30,16 +30,10 @@ def get_interactions(drug_name=None):
     cursor = conn.cursor()
 
     if drug_name:
-        drug_name = drug_name.lower()
-
         cursor.execute(
-            """
-            SELECT * FROM interactions
-            WHERE LOWER(drug1)=? OR LOWER(drug2)=?
-            """,
+            "SELECT * FROM interactions WHERE LOWER(drug1)=LOWER(?) OR LOWER(drug2)=LOWER(?)",
             (drug_name, drug_name)
         )
-
     else:
         cursor.execute("SELECT * FROM interactions")
 

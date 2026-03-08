@@ -12,7 +12,7 @@ def index():
 @app.route("/graph")
 def graph():
     drug = request.args.get("drug")
-    data = graph_to_json(drug)
+    data = graph_to_json(drug if drug else None)
     return jsonify(data)
 
 
