@@ -25,14 +25,21 @@ def get_interactions(drug_name=None):
     Fetch interactions from DB.
     If drug_name is None, return all interactions.
     """
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
     if drug_name:
+        drug_name = drug_name.lower()
+
         cursor.execute(
-            "SELECT * FROM interactions WHERE drug1=? OR drug2=?",
+            """
+            SELECT * FROM interactions
+            WHERE LOWER(drug1)=? OR LOWER(drug2)=?
+            """,
             (drug_name, drug_name)
         )
+
     else:
         cursor.execute("SELECT * FROM interactions")
 
@@ -40,13 +47,15 @@ def get_interactions(drug_name=None):
     conn.close()
 
     interactions = []
+
     for row in rows:
         interactions.append({
-            'drug1': row['drug1'],
-            'drug2': row['drug2'],
-            'severity': row['severity'] or 1,
-            'mechanism': row['mechanism'] or 'unknown'
+            "drug1": row["drug1"],
+            "drug2": row["drug2"],
+            "severity": row["severity"] or 1,
+            "mechanism": row["mechanism"] or "unknown",
         })
+
     return interactions
 
 def get_drug_class(name):
