@@ -1,7 +1,17 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Database
 *.sqlite3
+*.db
 *.db-journal
+
+# Env
 .env
+
+# OS junk
+.DS_Store
+Thumbs.db
