@@ -4,6 +4,9 @@ from graph.analyzer import enrich_graph_with_metrics
 from graph.visualizer import visualize_graph
 
 
+if __name__ == "__main__":
+    main()
+
 def print_drug_info(G, drug_lookup, user_input):
     key = drug_lookup.get(user_input.lower())
 
