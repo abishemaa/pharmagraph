@@ -1,3 +1,4 @@
+#app.py
 from flask import Flask, render_template, request, jsonify
 from graph.api import graph_to_json
 
@@ -14,7 +15,6 @@ def graph():
     drug = request.args.get("drug")
     data = graph_to_json(drug if drug else None)
     return jsonify(data)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
