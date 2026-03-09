@@ -1,30 +1,35 @@
-let Graph;
+let Graph = null;
 
 function loadGraph() {
 
-    const drugInput = document.getElementById("drug");
-    const drug = drugInput ? drugInput.value.trim() : "";
+    const input = document.getElementById("drug");
+    const drug = input ? input.value.trim() : "";
 
-    fetch(`/graph?drug=${drug}`)
-    .then(r => r.json())
-    .then(data => {
+    const url = drug ? `/graph?drug=${drug}` : "/graph";
 
-        const nodes = data.nodes.map(n => ({ id: n.id }));
-        const links = data.links.map(e => ({
-            source: e.source,
-            target: e.target
-        }));
+    fetch(url)
+        .then(r => r.json())
+        .then(data => {
 
-        if (!Graph) {
-            Graph = ForceGraph3D()(document.getElementById('3d-graph'))
-                .nodeLabel('id')
-                .nodeAutoColorBy('id');
-        }
+            if (!Graph) {
 
-        Graph.graphData({ nodes, links });
+                Graph = ForceGraph()(document.getElementById("graph"))
+                    .nodeId("id")
+                    .nodeLabel(node =>
+                        `<b>${node.id}</b><br>
+                        Class: ${node.class || "Unknown"}<br>
+                        MOA: ${node.moa || "Unknown"}<br>
+                        Metabolism: ${node.metabolism || "Unknown"}`
+                    )
+                    .nodeAutoColorBy("class")
+                    .nodeRelSize(8)
+                    .linkWidth(2);
+            }
 
-    })
-    .catch(err => console.error("Graph load error:", err));
+            Graph.graphData(data);
+
+        })
+        .catch(err => console.error(err));
 }
 
 window.onload = loadGraph;
