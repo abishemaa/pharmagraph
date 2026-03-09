@@ -16,7 +16,9 @@ def init_db():
         CREATE TABLE IF NOT EXISTS drugs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT UNIQUE,
-            drug_class TEXT
+            drug_class TEXT,
+            mechanism_of_action TEXT,
+            metabolism TEXT
         )
     """)
 
@@ -28,6 +30,9 @@ def init_db():
             drug2 TEXT,
             severity INTEGER,
             mechanism TEXT,
+            clinical_effect TEXT,
+            evidence TEXT,
+            management TEXT,
             FOREIGN KEY(drug1) REFERENCES drugs(name),
             FOREIGN KEY(drug2) REFERENCES drugs(name)
         )
