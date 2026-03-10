@@ -1,15 +1,12 @@
+#main.py
 from database import setup_database
 from loader import load_data
-from graph_builder import build_graph, draw_graph
-
+from cli import run_cli
 
 def main():
-
     setup_database()
     load_data()
-    graph = build_graph()
-    draw_graph(graph)
-
+    run_cli()
 
 if __name__ == "__main__":
     main()

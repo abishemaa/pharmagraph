@@ -1,15 +1,15 @@
 import sqlite3
 
-DB_PATH = "ddi.db"
+DB_FILE = "pharmagraph.db"
 
-
-def get_connection():
-    return sqlite3.connect(DB_PATH)
-
+def get_db_connection():
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row  # access columns by name
+    return conn
 
 def setup_database():
 
-    conn = get_connection()
+    conn = get_db_connection()
     cur = conn.cursor()
 
     cur.execute("""
@@ -35,65 +35,3 @@ def setup_database():
 
     conn.commit()
     conn.close()
-
-# CRUD operations
-def add_drug(name, drug_class, moa, metabolism):
-
-    conn = get_connection()
-    cur = conn.cursor()
-
-    cur.execute(
-        """
-        INSERT OR IGNORE INTO drugs(name, drug_class, moa, metabolism)
-        VALUES (?, ?, ?, ?)
-        """,
-        (name, drug_class, moa, metabolism)
-    )
-
-    conn.commit()
-    conn.close()
-
-
-def add_interaction(d1, d2, severity, mechanism, effect, management):
-
-    conn = get_connection()
-    cur = conn.cursor()
-
-    cur.execute("""
-        INSERT INTO interactions
-        (drug1,drug2,severity,mechanism,clinical_effect,management)
-        VALUES (?,?,?,?,?,?)
-    """, (d1, d2, severity, mechanism, effect, management))
-
-    conn.commit()
-    conn.close()
-
-
-def get_all_drugs():
-
-    conn = get_connection()
-    cur = conn.cursor()
-
-    cur.execute("""
-        SELECT name, drug_class, moa, metabolism
-        FROM drugs
-    """)
-
-    rows = cur.fetchall()
-
-    conn.close()
-
-    return rows
-
-
-def get_all_interactions():
-
-    conn = get_connection()
-    cur = conn.cursor()
-
-    cur.execute("SELECT drug1,drug2,severity FROM interactions")
-    rows = cur.fetchall()
-
-    conn.close()
-
-    return rows
