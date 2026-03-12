@@ -8,7 +8,12 @@ def build_graph(drug_name=None):
     if not interactions:
         return None
 
-    G = nx.DiGraph()
+    G = nx.Graph()
+    severity_map = {
+        "minor": 1,
+        "moderate": 2,
+        "major": 3
+    }
 
     for inter in interactions:
         d1 = inter["drug1"]
@@ -22,7 +27,7 @@ def build_graph(drug_name=None):
         G.add_edge(
             d1,
             d2,
-            weight=inter["severity"],
+            weight=severity_map.get(inter["severity"], 0),
             mechanism=inter["mechanism"],
             clinical_effect=inter["clinical_effect"],
             management=inter["management"]
