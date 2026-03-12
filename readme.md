@@ -254,9 +254,8 @@ black .
 
 ## 📧 Contact
 
-Project Link: [https://github.com/abishemaa/pharmagraph](https://github.com/yourusername/pharmagraph)
+Project Link: https://github.com/abishemaa/pharmagraph
 
 ---
 
 **Made with ❤️ for safer medication practices**
-```
