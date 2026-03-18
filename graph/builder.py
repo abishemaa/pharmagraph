@@ -1,4 +1,4 @@
-# builder.py
+# builder.py (fix severity mapping)
 import networkx as nx
 from models import get_all_interactions, get_drug_class
 
@@ -9,10 +9,13 @@ def build_graph(drug_name=None):
         return None
 
     G = nx.Graph()
+    
+    # Consistent severity mapping
     severity_map = {
         "minor": 1,
-        "moderate": 2,
-        "major": 3
+        "moderate": 2, 
+        "major": 3,
+        "contraindicated": 4
     }
 
     for inter in interactions:
@@ -23,14 +26,23 @@ def build_graph(drug_name=None):
         G.add_node(d1, drug_class=get_drug_class(d1))
         G.add_node(d2, drug_class=get_drug_class(d2))
         
+        # Get severity and normalize to lowercase for mapping
+        severity_raw = inter.get("severity", "unknown")
+        if severity_raw:
+            severity_lower = severity_raw.lower()
+            weight = severity_map.get(severity_lower, 0)
+        else:
+            weight = 0
+        
         # Add edges with all fields from interactions table
         G.add_edge(
             d1,
             d2,
-            weight=severity_map.get(inter["severity"], 0),
-            mechanism=inter["mechanism"],
-            clinical_effect=inter["clinical_effect"],
-            management=inter["management"]
+            weight=weight,
+            severity_text=severity_raw,  # Keep original text
+            mechanism=inter.get("mechanism", "Unknown mechanism"),
+            clinical_effect=inter.get("clinical_effect", "Unknown effect"),
+            management=inter.get("management", "Unknown management")
         )
 
     return G
