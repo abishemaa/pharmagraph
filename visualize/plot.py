@@ -1,6 +1,11 @@
-# visualizer.py - KISS version (clean, readable)
+# visualize/plot.py
 import networkx as nx
 import matplotlib.pyplot as plt
+import sys
+import os
+
+# Add parent directory to path so we can import core
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 SEVERITY_COLORS = {
     "Contraindicated": "red",

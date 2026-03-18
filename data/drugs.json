@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Warfarin",
+    "class": "Anticoagulant",
+    "moa": "Vitamin K antagonist",
+    "metabolism": "CYP2C9, CYP3A4"
+  },
+  {
+    "name": "Amiodarone",
+    "class": "Antiarrhythmic",
+    "moa": "Class III K+ channel blocker",
+    "metabolism": "CYP3A4, CYP2C8"
+  },
+  {
+    "name": "Simvastatin",
+    "class": "Statin (HMG-CoA Reductase)",
+    "moa": "Inhibits HMG-CoA reductase",
+    "metabolism": "CYP3A4"
+  },
+  {
+    "name": "Clopidogrel",
+    "class": "Antiplatelet",
+    "moa": "P2Y12 receptor antagonist",
+    "metabolism": "CYP2C19"
+  },
+  {
+    "name": "Fluoxetine",
+    "class": "SSRI Antidepressant",
+    "moa": "Serotonin reuptake inhibitor",
+    "metabolism": "CYP2D6"
+  },
+  {
+    "name": "Rifampin",
+    "class": "Antibiotic",
+    "moa": "RNA polymerase inhibitor",
+    "metabolism": "CYP Inducer (Strong)"
+  },
+  {
+    "name": "Digoxin",
+    "class": "Cardiac Glycoside",
+    "moa": "Na+/K+ ATPase inhibitor",
+    "metabolism": "P-glycoprotein substrate"
+  },
+  {
+    "name": "Spironolactone",
+    "class": "Diuretic (K-sparing)",
+    "moa": "Aldosterone antagonist",
+    "metabolism": "Hepatic"
+  },
+  {
+    "name": "Lisinopril",
+    "class": "ACE Inhibitor",
+    "moa": "Inhibits Angiotensin II formation",
+    "metabolism": "Renal (Not metabolized)"
+  },
+  {
+    "name": "Metoprolol",
+    "class": "Beta-Blocker",
+    "moa": "Selective B1 antagonist",
+    "metabolism": "CYP2D6"
+  },
+  {
+    "name": "Clarithromycin",
+    "class": "Macrolide Antibiotic",
+    "moa": "50S Ribosomal inhibitor",
+    "metabolism": "CYP3A4 inhibitor"
+  },
+  {
+    "name": "Lithium",
+    "class": "Mood Stabilizer",
+    "moa": "Unknown; modifies ion transport",
+    "metabolism": "Renal (Not metabolized)"
+  },
+  {
+    "name": "Ibuprofen",
+    "class": "NSAID",
+    "moa": "COX-1 and COX-2 inhibitor",
+    "metabolism": "CYP2C9"
+  },
+  {
+    "name": "Sildenafil",
+    "class": "PDE5 Inhibitor",
+    "moa": "Inhibits PDE5, increases cGMP",
+    "metabolism": "CYP3A4"
+  },
+  {
+    "name": "Nitroglycerin",
+    "class": "Vasodilator",
+    "moa": "NO donor; increases cGMP",
+    "metabolism": "Liver (High first-pass)"
+  },
+  {
+    "name": "Omeprazole",
+    "class": "Proton Pump Inhibitor",
+    "moa": "H+/K+ ATPase inhibitor",
+    "metabolism": "CYP2C19"
+  },
+  {
+    "name": "St. John’s Wort",
+    "class": "Herbal Supplement",
+    "moa": "Various (reuptake inhibition)",
+    "metabolism": "CYP3A4 Inducer"
+  },
+  {
+    "name": "Phenytoin",
+    "class": "Anticonvulsant",
+    "moa": "Sodium channel blocker",
+    "metabolism": "CYP2C9"
+  },
+  {
+    "name": "Grapefruit Juice",
+    "class": "Dietary",
+    "moa": "",
+    "metabolism": "CYP3A4 Inhibitor (Gut)"
+  },
+  {
+    "name": "Metformin",
+    "class": "Biguanide",
+    "moa": "AMPK activator",
+    "metabolism": "Renal (Not metabolized)"
+  }
+]

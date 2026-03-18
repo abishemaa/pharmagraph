@@ -1,0 +1,202 @@
+[
+  {
+    "drug1": "Warfarin",
+    "drug2": "Ibuprofen",
+    "severity": "Major",
+    "mechanism": "Pharmacodynamic",
+    "clinical_effect": "Increased bleeding risk",
+    "management": "Avoid NSAIDs with Warfarin"
+  },
+  {
+    "drug1": "Simvastatin",
+    "drug2": "Clarithromycin",
+    "severity": "Major",
+    "mechanism": "CYP3A4 Inhibition",
+    "clinical_effect": "Increased simvastatin levels (Myopathy)",
+    "management": "Suspend statin or switch ABX"
+  },
+  {
+    "drug1": "Sildenafil",
+    "drug2": "Nitroglycerin",
+    "severity": "Contraindicated",
+    "mechanism": "Synergistic Vasodilation",
+    "clinical_effect": "Severe Hypotension",
+    "management": "Do not use together"
+  },
+  {
+    "drug1": "Warfarin",
+    "drug2": "Rifampin",
+    "severity": "Major",
+    "mechanism": "CYP Induction",
+    "clinical_effect": "Reduced anticoagulant effect (Clot risk)",
+    "management": "Monitor INR; increase dose"
+  },
+  {
+    "drug1": "Lisinopril",
+    "drug2": "Spironolactone",
+    "severity": "Moderate",
+    "mechanism": "Pharmacodynamic",
+    "clinical_effect": "Hyperkalemia (High Potassium)",
+    "management": "Monitor serum potassium"
+  },
+  {
+    "drug1": "Digoxin",
+    "drug2": "Amiodarone",
+    "severity": "Major",
+    "mechanism": "P-gp Inhibition",
+    "clinical_effect": "Increased Digoxin toxicity",
+    "management": "Reduce Digoxin dose by 50%"
+  },
+  {
+    "drug1": "Fluoxetine",
+    "drug2": "Metoprolol",
+    "severity": "Moderate",
+    "mechanism": "CYP2D6 Inhibition",
+    "clinical_effect": "Bradycardia (Slow heart rate)",
+    "management": "Monitor heart rate"
+  },
+  {
+    "drug1": "Clopidogrel",
+    "drug2": "Omeprazole",
+    "severity": "Moderate",
+    "mechanism": "CYP2C19 Inhibition",
+    "clinical_effect": "Reduced antiplatelet efficacy",
+    "management": "Use alternative PPI (Pantoprazole)"
+  },
+  {
+    "drug1": "Lithium",
+    "drug2": "Ibuprofen",
+    "severity": "Major",
+    "mechanism": "Renal clearance reduction",
+    "clinical_effect": "Lithium toxicity",
+    "management": "Avoid NSAIDs; use Acetaminophen"
+  },
+  {
+    "drug1": "Warfarin",
+    "drug2": "St. John’s Wort",
+    "severity": "Major",
+    "mechanism": "CYP3A4 Induction",
+    "clinical_effect": "Sub-therapeutic INR",
+    "management": "Avoid herbal supplement"
+  },
+  {
+    "drug1": "Simvastatin",
+    "drug2": "Amiodarone",
+    "severity": "Moderate",
+    "mechanism": "CYP3A4 Inhibition",
+    "clinical_effect": "Increased risk of Rhabdomyolysis",
+    "management": "Limit simvastatin to 20mg daily"
+  },
+  {
+    "drug1": "Warfarin",
+    "drug2": "Clarithromycin",
+    "severity": "Major",
+    "mechanism": "CYP3A4 Inhibition",
+    "clinical_effect": "Increased bleeding/INR",
+    "management": "Frequent INR monitoring"
+  },
+  {
+    "drug1": "Simvastatin",
+    "drug2": "Grapefruit Juice",
+    "severity": "Moderate",
+    "mechanism": "CYP3A4 Inhibition",
+    "clinical_effect": "Increased statin exposure",
+    "management": "Avoid large amounts of juice"
+  },
+  {
+    "drug1": "Metoprolol",
+    "drug2": "Digoxin",
+    "severity": "Moderate",
+    "mechanism": "Pharmacodynamic",
+    "clinical_effect": "Excessive Bradycardia",
+    "management": "Monitor heart rate and ECG"
+  },
+  {
+    "drug1": "Phenytoin",
+    "drug2": "Warfarin",
+    "severity": "Major",
+    "mechanism": "CYP Induction/Metabolism",
+    "clinical_effect": "Erratic INR levels",
+    "management": "Monitor INR closely"
+  },
+  {
+    "drug1": "Rifampin",
+    "drug2": "Sildenafil",
+    "severity": "Moderate",
+    "mechanism": "CYP3A4 Induction",
+    "clinical_effect": "Reduced Sildenafil efficacy",
+    "management": "Monitor clinical response"
+  },
+  {
+    "drug1": "Ibuprofen",
+    "drug2": "Lisinopril",
+    "severity": "Moderate",
+    "mechanism": "Pharmacodynamic",
+    "clinical_effect": "Reduced BP control/Renal stress",
+    "management": "Monitor blood pressure/Renal function"
+  },
+  {
+    "drug1": "Fluoxetine",
+    "drug2": "Warfarin",
+    "severity": "Moderate",
+    "mechanism": "CYP2C9 Inhibition",
+    "clinical_effect": "Increased bleeding risk",
+    "management": "Monitor INR"
+  },
+  {
+    "drug1": "Clarithromycin",
+    "drug2": "Digoxin",
+    "severity": "Moderate",
+    "mechanism": "P-gp Inhibition",
+    "clinical_effect": "Digoxin toxicity",
+    "management": "Monitor Digoxin levels"
+  },
+  {
+    "drug1": "Phenytoin",
+    "drug2": "Rifampin",
+    "severity": "Moderate",
+    "mechanism": "CYP Induction",
+    "clinical_effect": "Reduced Phenytoin levels",
+    "management": "Monitor seizure frequency"
+  },
+  {
+    "drug1": "Lithium",
+    "drug2": "Lisinopril",
+    "severity": "Major",
+    "mechanism": "Reduced renal excretion",
+    "clinical_effect": "Lithium toxicity",
+    "management": "Monitor Lithium levels regularly"
+  },
+  {
+    "drug1": "Warfarin",
+    "drug2": "Amiodarone",
+    "severity": "Major",
+    "mechanism": "CYP2C9 Inhibition",
+    "clinical_effect": "Significantly increased INR",
+    "management": "Reduce Warfarin dose by 30-50%"
+  },
+  {
+    "drug1": "Clopidogrel",
+    "drug2": "Fluoxetine",
+    "severity": "Moderate",
+    "mechanism": "CYP2C19 Inhibition",
+    "clinical_effect": "Reduced antiplatelet activity",
+    "management": "Monitor for thrombotic events"
+  },
+  {
+    "drug1": "St. John’s Wort",
+    "drug2": "Simvastatin",
+    "severity": "Moderate",
+    "mechanism": "CYP3A4 Induction",
+    "clinical_effect": "Reduced statin efficacy",
+    "management": "Avoid St. John's Wort"
+  },
+  {
+    "drug1": "Ibuprofen",
+    "drug2": "Spironolactone",
+    "severity": "Moderate",
+    "mechanism": "Renal antagonism",
+    "clinical_effect": "Reduced diuretic effect/Hyperkalemia",
+    "management": "Monitor BP and electrolytes"
+  }
+]
