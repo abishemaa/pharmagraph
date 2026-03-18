@@ -7,7 +7,7 @@ A command-line tool for analyzing drug-drug interaction networks using graph the
 
 ```bash
 # Clone the repository
-git clone <https://github.com/abishemaa/pharmagraph>
+git clone https://github.com/abishemaa/pharmagraph.git
 cd pharmagraph
 
 # Install dependencies
