@@ -4,8 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pharmagraph</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            height: 60px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        .sidebar {
+            width: 220px;
+            border-right: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <script>
+        function toggleDrugs() {
+            const menu =
+                document.getElementById(
+                    "drugs-menu"
+                );
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            }
+            else {
+                menu.style.display = "none";
+            }
+        }
+        function toggleInteractions() {
+            const menu =
+                document.getElementById(
+                    "interactions-menu"
+                );
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            }
+            else {
+                menu.style.display = "none";
+            }
+        }
+        function toggleGraphs() {
+            const menu =
+                document.getElementById(
+                    "graphs-menu"
+                );
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            }
+            else {
+                menu.style.display = "none";
+            }
+        }
+        
+
+        function showAllDrugs() {
+            fetch('/all_drugs')
+                .then(response => response.text())
+                .then(html => {
+                    const container = document.getElementById('main-content');
+                    container.innerHTML = html;
+                }) 
+        }
+        function showStatistics() {
+            fetch('/stats')
+                .then(response => response.text())
+                .then(html => {
+                    const container = document.getElementById('main-content');
+                    if (!html) {
+                        container.innerHTML = '<h1>Network Statistics</h1><p>No data available.</p>';
+                        return;
+                    }
+                    container.innerHTML = html;
+                })
+
+                .catch(err => {
+                    document.getElementById('main-content').innerHTML = '<h1>Error loading stats</h1><p>Check server console or network.</p>';
+                    console.error('Failed to load stats:', err);
+                });
+        }
+
+
+
+    </script>
 </head>
 <body>
-    <h1 class="display-4">Pharmagraph</h1>
+
+    <div class="header">
+        <h2>PharmaGraph</h2>
+    </div>
+
+    <div class="container">
+
+        <div class="sidebar">
+            <button onclick="toggleDrugs()">Drugs</button>
+                <div id="drugs-menu" style="display: none; margin-left: 20px;">
+                    <button onclick="showAllDrugs()">All Drugs</button>
+                    <button onclick="searchDrug()">Search Drug</button>
+                </div>
+            <button onclick="toggleInteractions()">Interactions</button>
+                <div id="interactions-menu" style="display: none; margin-left: 20px;">
+                    <button onclick="explainInteractions()">Explain Interactions</button>
+                    <button onclick="pathFinder()">Path Finder</button>
+                </div>
+            <button onclick="toggleGraphs()">Graphs</button>
+                <div id="graphs-menu" style="display: none; margin-left: 20px;">
+                    <button onclick="fullNetwork()">Full Network</button>
+                    <button onclick="drugSubGraph()">Drug Sub-Graph</button>
+                </div>
+            <button onclick="showStatistics()">Statistics</button>
+        </div>
+
+        <div id="main-content" class="main">
+
+            <h1>Welcome to PharmaGraph</h1>
+
+        </div>
+
+    </div>
+
 </body>
 </html>

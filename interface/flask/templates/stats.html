@@ -1,0 +1,11 @@
+<h1>Network Statistics</h1>
+
+<p>Total Drugs: {{ stats.total_drugs }}</p>
+<p>Total Interactions: {{ stats.total_interactions }}</p>
+<p>Density: {{ stats.density }}</p>
+<p>Top Degree: {{stats.top_degree[:5]}}</p>
+<p>Top Betweenness: {{stats.top_betweenness[:5]}}</p>
+<p>Most Connected:
+{{ stats.most_connected[0] }}
+({{ stats.most_connected[1] }} interactions)
+</p>
